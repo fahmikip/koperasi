@@ -36,4 +36,15 @@ class MemberCardTest extends TestCase
 
         $this->get(route('members.verify', $member->qr_token))->assertOk()->assertSee('Anggota Aktif')->assertSee($member->member_number);
     }
+
+    public function test_missing_photo_file_uses_initial_fallback_instead_of_broken_image(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+        $user = User::where('email', 'admin@koperasi.test')->firstOrFail();
+        $member = Member::factory()->create(['name' => 'Ahmad', 'photo_path' => 'members/missing-photo.jpg']);
+
+        $this->assertFalse($member->hasStoredPhoto());
+        $this->assertNull($member->photoUrl());
+        $this->actingAs($user)->get(route('members.show', $member))->assertOk()->assertDontSee('missing-photo.jpg');
+    }
 }

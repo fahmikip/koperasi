@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -39,6 +40,16 @@ class Member extends Model
     public function cardPrintHistories(): HasMany
     {
         return $this->hasMany(CardPrintHistory::class);
+    }
+
+    public function hasStoredPhoto(): bool
+    {
+        return filled($this->photo_path) && Storage::disk('public')->exists($this->photo_path);
+    }
+
+    public function photoUrl(): ?string
+    {
+        return $this->hasStoredPhoto() ? Storage::disk('public')->url($this->photo_path) : null;
     }
 
     public function getActivitylogOptions(): LogOptions

@@ -57,8 +57,8 @@
         </div>
 
         <div class="photo-wrap">
-            @if($member->photo_path && file_exists(public_path('storage/'.$member->photo_path)))
-                <img class="photo" src="{{ $isPdf ? public_path('storage/'.$member->photo_path) : Storage::url($member->photo_path) }}" alt="Foto {{ $member->name }}">
+            @if($member->hasStoredPhoto())
+                <img class="photo" src="{{ $isPdf ? Storage::disk('public')->path($member->photo_path) : $member->photoUrl() }}" alt="Foto {{ $member->name }}">
             @else
                 <div class="photo-fallback">{{ strtoupper(substr($member->name, 0, 1)) }}</div>
             @endif
