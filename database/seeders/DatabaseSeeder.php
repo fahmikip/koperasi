@@ -20,14 +20,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         app(PermissionRegistrar::class)->forgetCachedPermissions();
-        $permissions = collect(['members.view', 'members.create', 'members.update', 'members.delete', 'savings.view', 'savings.manage', 'loans.view', 'loans.manage', 'loans.create', 'loans.approve', 'loans.disburse', 'installments.manage', 'reports.view', 'users.manage', 'audit.view']);
+        $permissions = collect(['members.view', 'members.create', 'members.update', 'members.delete', 'savings.view', 'savings.manage', 'loans.view', 'loans.manage', 'loans.create', 'loans.approve', 'loans.disburse', 'installments.view', 'installments.manage', 'reports.view', 'users.manage', 'audit.view']);
         $permissions->each(fn ($name) => Permission::findOrCreate($name, 'web'));
         app(PermissionRegistrar::class)->forgetCachedPermissions();
         $roles = [
             'Super Admin' => $permissions->all(),
             'Admin' => $permissions->except($permissions->search('users.manage'))->all(),
-            'Bendahara' => ['members.view', 'savings.view', 'savings.manage', 'loans.view', 'loans.create', 'loans.approve', 'loans.disburse', 'installments.manage', 'reports.view'],
-            'Petugas' => ['members.view', 'members.create', 'members.update', 'savings.view', 'savings.manage', 'loans.view', 'loans.create', 'installments.manage'],
+            'Bendahara' => ['members.view', 'savings.view', 'savings.manage', 'loans.view', 'loans.create', 'loans.approve', 'loans.disburse', 'installments.view', 'installments.manage', 'reports.view'],
+            'Petugas' => ['members.view', 'members.create', 'members.update', 'savings.view', 'savings.manage', 'loans.view', 'loans.create', 'installments.view', 'installments.manage'],
             'Anggota' => [],
         ];
         foreach ($roles as $name => $grants) {

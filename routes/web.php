@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InstallmentController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\MemberCardController;
 use App\Http\Controllers\MemberController;
@@ -23,6 +24,10 @@ Route::middleware('auth')->group(function () {
     Route::post('loans/{loan}/reject', [LoanController::class, 'reject'])->name('loans.reject');
     Route::post('loans/{loan}/disburse', [LoanController::class, 'disburse'])->name('loans.disburse');
     Route::resource('loans', LoanController::class);
+    Route::get('installments', [InstallmentController::class, 'index'])->name('installments.index');
+    Route::get('loans/{loan}/installments/create', [InstallmentController::class, 'create'])->name('installments.create');
+    Route::post('loans/{loan}/installments', [InstallmentController::class, 'store'])->name('installments.store');
+    Route::get('installments/{installment}', [InstallmentController::class, 'show'])->name('installments.show');
     Route::get('members/{member}/card', [MemberCardController::class, 'preview'])->name('members.card');
     Route::get('members/{member}/card/download', [MemberCardController::class, 'download'])->name('members.card.download');
 });

@@ -81,7 +81,7 @@ class LoanService
             }
             $loan->status = Loan::STATUS_DISBURSED;
             $loan->disbursed_at = $date;
-            $loan->remaining_balance = $loan->total_payable;
+            $loan->remaining_balance = $loan->principal_amount;
             $loan->notes = $this->appendNote($loan->notes, 'Pencairan', $notes);
 
             return $this->loans->save($loan);

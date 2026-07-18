@@ -4,9 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Installment extends Model
 {
+    use LogsActivity;
+
     protected $fillable = ['payment_number', 'loan_id', 'received_by', 'installment_number', 'paid_at', 'principal_paid', 'interest_paid', 'penalty', 'total_paid', 'notes'];
 
     protected function casts(): array
@@ -22,5 +26,10 @@ class Installment extends Model
     public function receiver(): BelongsTo
     {
         return $this->belongsTo(User::class, 'received_by');
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()->logFillable()->logOnlyDirty();
     }
 }

@@ -23,7 +23,8 @@
                     @can('members.view')<a href="{{ route('members.index') }}" class="block rounded-xl px-4 py-3 hover:bg-white/10">Manajemen Anggota</a>@endcan
                     @can('savings.view')<a href="{{ route('savings.index') }}" class="block rounded-xl px-4 py-3 hover:bg-white/10">Simpanan</a>@endcan
                     @can('loans.view')<a href="{{ route('loans.index') }}" class="block rounded-xl px-4 py-3 hover:bg-white/10">Pinjaman</a>@endcan
-                    <a href="#" class="block rounded-xl px-4 py-3 text-blue-200">Angsuran</a><a href="#" class="block rounded-xl px-4 py-3 text-blue-200">Laporan</a>
+                    @canany(['installments.view', 'installments.manage'])<a href="{{ route('installments.index') }}" class="block rounded-xl px-4 py-3 hover:bg-white/10">Angsuran</a>@endcanany
+                    <a href="#" class="block rounded-xl px-4 py-3 text-blue-200">Laporan</a>
                 </nav>
             </aside>
             <main class="min-w-0 flex-1">

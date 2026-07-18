@@ -43,7 +43,7 @@ class LoanWorkflowTest extends TestCase
         $this->actingAs($this->admin)->post(route('loans.disburse', $loan), ['disbursed_at' => now()->format('Y-m-d'), 'disbursement_notes' => 'Transfer bank'])->assertRedirect();
         $loan->refresh();
         $this->assertSame(Loan::STATUS_DISBURSED, $loan->status);
-        $this->assertEquals($loan->total_payable, $loan->remaining_balance);
+        $this->assertEquals($loan->principal_amount, $loan->remaining_balance);
     }
 
     public function test_rejection_requires_a_reason(): void

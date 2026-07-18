@@ -24,6 +24,9 @@
                     @can('loans.view')
                         <x-nav-link :href="route('loans.index')" :active="request()->routeIs('loans.*')">Pinjaman</x-nav-link>
                     @endcan
+                    @canany(['installments.view', 'installments.manage'])
+                        <x-nav-link :href="route('installments.index')" :active="request()->routeIs('installments.*')">Angsuran</x-nav-link>
+                    @endcanany
                 </div>
             </div>
 
@@ -82,6 +85,7 @@
             @can('members.view')<x-responsive-nav-link :href="route('members.index')" :active="request()->routeIs('members.*')">Anggota</x-responsive-nav-link>@endcan
             @can('savings.view')<x-responsive-nav-link :href="route('savings.index')" :active="request()->routeIs('savings.*')">Simpanan</x-responsive-nav-link>@endcan
             @can('loans.view')<x-responsive-nav-link :href="route('loans.index')" :active="request()->routeIs('loans.*')">Pinjaman</x-responsive-nav-link>@endcan
+            @canany(['installments.view', 'installments.manage'])<x-responsive-nav-link :href="route('installments.index')" :active="request()->routeIs('installments.*')">Angsuran</x-responsive-nav-link>@endcanany
         </div>
 
         <!-- Responsive Settings Options -->
