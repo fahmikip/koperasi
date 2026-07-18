@@ -60,6 +60,6 @@ class MemberController extends Controller
         $this->authorize('delete', $member);
         $this->service->delete($member);
 
-        return redirect()->route('members.index')->with('success','Anggota dinonaktifkan.');
+        return redirect()->route('members.index')->with('success', 'Anggota dinonaktifkan.');
     }
 }

@@ -292,23 +292,23 @@ Role * ─── * Permission
 - SweetAlert2
 - Build frontend produksi
 - Test autentikasi dan anggota
+- CRUD transaksi simpanan dan validasi saldo berjalan
 
 ### Belum selesai dan menjadi roadmap
 
-1. CRUD transaksi simpanan dan validasi saldo.
-2. Export simpanan ke PDF dan Excel.
-3. Workflow pengajuan, persetujuan, dan pencairan pinjaman.
-4. Kalkulator bunga, tenor, total tagihan, dan sisa pinjaman.
-5. Pembayaran angsuran, denda, dan pelunasan otomatis.
-6. Laporan anggota, simpanan, pinjaman, angsuran, dan transaksi.
-7. Halaman manajemen pengguna, role, dan permission.
-8. Halaman penelusuran audit log.
-9. Grafik dashboard berdasarkan periode.
-10. Filter, sorting, pagination, print, dan export seluruh tabel.
-11. Resize dan optimasi foto otomatis; server harus mengaktifkan ekstensi GD.
-12. Penambahan sisi belakang kartu, tanda tangan, alamat, dan ketentuan.
-13. Pengujian workflow keuangan dan concurrency.
-14. Deployment, backup, queue worker, scheduler, dan monitoring.
+1. Export simpanan ke PDF dan Excel.
+2. Workflow pengajuan, persetujuan, dan pencairan pinjaman.
+3. Kalkulator bunga, tenor, total tagihan, dan sisa pinjaman.
+4. Pembayaran angsuran, denda, dan pelunasan otomatis.
+5. Laporan anggota, simpanan, pinjaman, angsuran, dan transaksi.
+6. Halaman manajemen pengguna, role, dan permission.
+7. Halaman penelusuran audit log.
+8. Grafik dashboard berdasarkan periode.
+9. Filter, sorting, pagination, print, dan export seluruh tabel.
+10. Resize dan optimasi foto otomatis; server harus mengaktifkan ekstensi GD.
+11. Penambahan sisi belakang kartu, tanda tangan, alamat, dan ketentuan.
+12. Pengujian workflow keuangan dan concurrency.
+13. Deployment, backup, queue worker, scheduler, dan monitoring.
 
 ## 10. Persiapan Lingkungan Development
 

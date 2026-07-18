@@ -33,7 +33,7 @@ class MemberService
                 }$data['photo_path'] = $photo->store('members', 'public');
             }
 
-return $this->members->update($member, $data);
+            return $this->members->update($member, $data);
         });
     }
 

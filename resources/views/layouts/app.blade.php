@@ -21,7 +21,8 @@
                 <nav class="space-y-2 text-sm">
                     <a href="{{ route('dashboard') }}" class="block rounded-xl px-4 py-3 hover:bg-white/10">Dashboard</a>
                     @can('members.view')<a href="{{ route('members.index') }}" class="block rounded-xl px-4 py-3 hover:bg-white/10">Manajemen Anggota</a>@endcan
-                    <a href="#" class="block rounded-xl px-4 py-3 text-blue-200">Simpanan</a><a href="#" class="block rounded-xl px-4 py-3 text-blue-200">Pinjaman & Angsuran</a><a href="#" class="block rounded-xl px-4 py-3 text-blue-200">Laporan</a>
+                    @can('savings.view')<a href="{{ route('savings.index') }}" class="block rounded-xl px-4 py-3 hover:bg-white/10">Simpanan</a>@endcan
+                    <a href="#" class="block rounded-xl px-4 py-3 text-blue-200">Pinjaman & Angsuran</a><a href="#" class="block rounded-xl px-4 py-3 text-blue-200">Laporan</a>
                 </nav>
             </aside>
             <main class="min-w-0 flex-1">
