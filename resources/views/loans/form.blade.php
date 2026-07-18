@@ -1,0 +1,18 @@
+<x-app-layout>
+    <x-slot name="header"><h1 class="text-2xl font-bold">{{ $loan->exists ? 'Edit' : 'Buat' }} Pengajuan Pinjaman</h1></x-slot>
+    <form method="POST" action="{{ $loan->exists ? route('loans.update', $loan) : route('loans.store') }}" class="rounded-2xl bg-white p-6 shadow-sm" x-data="{ principal: {{ (float) old('principal_amount', $loan->principal_amount ?? 0) }}, rate: {{ (float) old('interest_rate', $loan->interest_rate ?? 0) }}, term: {{ (int) old('term_months', $loan->term_months ?? 12) }}, rupiah(value) { return new Intl.NumberFormat('id-ID').format(value || 0) } }">
+        @csrf @if($loan->exists) @method('PUT') @endif
+        @if($errors->any())<div class="mb-5 rounded-xl bg-rose-100 px-4 py-3 text-rose-800"><div class="font-semibold">Pengajuan belum dapat disimpan.</div><ul class="mt-1 list-inside list-disc text-sm">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>@endif
+        <div class="grid gap-5 md:grid-cols-2">
+            <label><span class="text-sm font-medium">Anggota aktif</span><select name="member_id" class="mt-1 w-full rounded-xl border-slate-200" required><option value="">Pilih anggota</option>@foreach($members as $member)<option value="{{ $member->id }}" @selected((string) old('member_id', $loan->member_id) === (string) $member->id)>{{ $member->member_number }} — {{ $member->name }}</option>@endforeach</select></label>
+            <label><span class="text-sm font-medium">Tanggal pengajuan</span><input type="date" name="applied_at" value="{{ old('applied_at', $loan->applied_at?->format('Y-m-d') ?? now()->format('Y-m-d')) }}" max="{{ now()->format('Y-m-d') }}" class="mt-1 w-full rounded-xl border-slate-200" required></label>
+            <label><span class="text-sm font-medium">Pokok pinjaman (Rp)</span><input type="number" name="principal_amount" x-model.number="principal" min="1000" step="0.01" class="mt-1 w-full rounded-xl border-slate-200" required></label>
+            <label><span class="text-sm font-medium">Bunga flat per bulan (%)</span><input type="number" name="interest_rate" x-model.number="rate" min="0" max="100" step="0.0001" class="mt-1 w-full rounded-xl border-slate-200" required></label>
+            <label><span class="text-sm font-medium">Tenor (bulan)</span><input type="number" name="term_months" x-model.number="term" min="1" max="120" class="mt-1 w-full rounded-xl border-slate-200" required></label>
+            <div class="rounded-xl bg-blue-50 p-4"><div class="text-xs uppercase text-blue-500">Estimasi total tagihan</div><div class="mt-1 text-xl font-bold text-blue-900">Rp <span x-text="rupiah(principal + (principal * rate / 100 * term))"></span></div><div class="text-xs text-blue-600">Bunga: Rp <span x-text="rupiah(principal * rate / 100 * term)"></span></div></div>
+            <label class="md:col-span-2"><span class="text-sm font-medium">Tujuan pinjaman</span><textarea name="purpose" rows="3" maxlength="2000" class="mt-1 w-full rounded-xl border-slate-200" required>{{ old('purpose', $loan->purpose) }}</textarea></label>
+            <label class="md:col-span-2"><span class="text-sm font-medium">Catatan awal</span><textarea name="notes" rows="3" maxlength="2000" class="mt-1 w-full rounded-xl border-slate-200">{{ old('notes', $loan->notes) }}</textarea></label>
+        </div>
+        <div class="mt-6 flex justify-end gap-3"><a href="{{ $loan->exists ? route('loans.show', $loan) : route('loans.index') }}" class="rounded-xl px-5 py-3">Batal</a><button class="rounded-xl bg-blue-700 px-6 py-3 font-semibold text-white">Simpan Pengajuan</button></div>
+    </form>
+</x-app-layout>

@@ -94,6 +94,9 @@ savings.view
 savings.manage
 loans.view
 loans.manage
+loans.create
+loans.approve
+loans.disburse
 installments.manage
 reports.view
 users.manage
@@ -293,22 +296,22 @@ Role * ─── * Permission
 - Build frontend produksi
 - Test autentikasi dan anggota
 - CRUD transaksi simpanan dan validasi saldo berjalan
+- Workflow pengajuan, persetujuan, penolakan, dan pencairan pinjaman
 
 ### Belum selesai dan menjadi roadmap
 
 1. Export simpanan ke PDF dan Excel.
-2. Workflow pengajuan, persetujuan, dan pencairan pinjaman.
-3. Kalkulator bunga, tenor, total tagihan, dan sisa pinjaman.
-4. Pembayaran angsuran, denda, dan pelunasan otomatis.
-5. Laporan anggota, simpanan, pinjaman, angsuran, dan transaksi.
-6. Halaman manajemen pengguna, role, dan permission.
-7. Halaman penelusuran audit log.
-8. Grafik dashboard berdasarkan periode.
-9. Filter, sorting, pagination, print, dan export seluruh tabel.
-10. Resize dan optimasi foto otomatis; server harus mengaktifkan ekstensi GD.
-11. Penambahan sisi belakang kartu, tanda tangan, alamat, dan ketentuan.
-12. Pengujian workflow keuangan dan concurrency.
-13. Deployment, backup, queue worker, scheduler, dan monitoring.
+2. Kalkulator bunga lanjutan dan simulasi jadwal angsuran.
+3. Pembayaran angsuran, denda, dan pelunasan otomatis.
+4. Laporan anggota, simpanan, pinjaman, angsuran, dan transaksi.
+5. Halaman manajemen pengguna, role, dan permission.
+6. Halaman penelusuran audit log.
+7. Grafik dashboard berdasarkan periode.
+8. Filter, sorting, pagination, print, dan export seluruh tabel.
+9. Resize dan optimasi foto otomatis; server harus mengaktifkan ekstensi GD.
+10. Penambahan sisi belakang kartu, tanda tangan, alamat, dan ketentuan.
+11. Pengujian workflow keuangan dan concurrency.
+12. Deployment, backup, queue worker, scheduler, dan monitoring.
 
 ## 10. Persiapan Lingkungan Development
 
