@@ -300,19 +300,19 @@ Role * ─── * Permission
 - Workflow pengajuan, persetujuan, penolakan, dan pencairan pinjaman
 - Pembayaran angsuran, denda, bukti pembayaran, dan pelunasan otomatis
 - Laporan anggota, simpanan, pinjaman, angsuran, dan transaksi dengan ekspor PDF/Excel
+- Penelusuran audit log dengan filter pelaku, event, modul, periode, dan detail perubahan
 
 ### Belum selesai dan menjadi roadmap
 
 1. Export simpanan ke PDF dan Excel.
 2. Kalkulator bunga lanjutan dan simulasi jadwal angsuran.
 3. Halaman manajemen pengguna, role, dan permission.
-4. Halaman penelusuran audit log.
-5. Grafik dashboard berdasarkan periode.
-6. Filter, sorting, pagination, print, dan export seluruh tabel.
-7. Resize dan optimasi foto otomatis; server harus mengaktifkan ekstensi GD.
-8. Penambahan sisi belakang kartu, tanda tangan, alamat, dan ketentuan.
-9. Pengujian workflow keuangan dan concurrency.
-10. Deployment, backup, queue worker, scheduler, dan monitoring.
+4. Grafik dashboard berdasarkan periode.
+5. Filter, sorting, pagination, print, dan export seluruh tabel.
+6. Resize dan optimasi foto otomatis; server harus mengaktifkan ekstensi GD.
+7. Penambahan sisi belakang kartu, tanda tangan, alamat, dan ketentuan.
+8. Pengujian workflow keuangan dan concurrency.
+9. Deployment, backup, queue worker, scheduler, dan monitoring.
 
 ## 10. Persiapan Lingkungan Development
 

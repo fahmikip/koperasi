@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuditLogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InstallmentController;
 use App\Http\Controllers\LoanController;
@@ -32,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::get('reports/{type}/pdf', [ReportController::class, 'pdf'])->name('reports.pdf');
     Route::get('reports/{type}/excel', [ReportController::class, 'excel'])->name('reports.excel');
     Route::get('reports/{type?}', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('audit-logs', [AuditLogController::class, 'index'])->name('audit.index');
+    Route::get('audit-logs/{activity}', [AuditLogController::class, 'show'])->name('audit.show');
     Route::get('members/{member}/card', [MemberCardController::class, 'preview'])->name('members.card');
     Route::get('members/{member}/card/download', [MemberCardController::class, 'download'])->name('members.card.download');
 });
