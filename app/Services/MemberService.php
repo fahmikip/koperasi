@@ -11,14 +11,14 @@ use Illuminate\Support\Str;
 
 class MemberService
 {
-    public function __construct(private MemberRepositoryInterface $members) {}
+    public function __construct(private MemberRepositoryInterface $members, private PhotoOptimizer $photos) {}
 
     public function create(array $data, ?UploadedFile $photo): Member
     {
         return DB::transaction(function () use ($data, $photo) {
             $data['member_number'] = $this->nextNumber();
             $data['qr_token'] = (string) Str::uuid();
-            $data['photo_path'] = $photo?->store('members', 'public');
+            $data['photo_path'] = $photo ? $this->photos->store($photo) : null;
 
             return $this->members->create($data);
         });
@@ -28,9 +28,11 @@ class MemberService
     {
         return DB::transaction(function () use ($member, $data, $photo) {
             if ($photo) {
-                if ($member->photo_path) {
-                    Storage::disk('public')->delete($member->photo_path);
-                }$data['photo_path'] = $photo->store('members', 'public');
+                $oldPhoto = $member->photo_path;
+                $data['photo_path'] = $this->photos->store($photo);
+                if ($oldPhoto) {
+                    DB::afterCommit(fn () => Storage::disk(config('member_photos.disk', 'public'))->delete($oldPhoto));
+                }
             }
 
             return $this->members->update($member, $data);

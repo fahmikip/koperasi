@@ -286,6 +286,7 @@ Role * ─── * Permission
 - Factory anggota
 - Dashboard statistik dan grafik keuangan berdasarkan periode
 - Tabel data dengan pencarian, sorting, pagination, cetak, dan export CSV
+- Resize, auto-orientation, dan optimasi WebP untuk foto anggota (memerlukan ekstensi PHP GD)
 - CRUD anggota
 - Upload foto anggota
 - Nomor anggota otomatis

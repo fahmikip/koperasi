@@ -7,6 +7,16 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Persyaratan pemrosesan foto
+
+Aplikasi memerlukan ekstensi PHP **GD** untuk resize dan optimasi foto anggota. Pada XAMPP Windows, buka `C:\xampp\php\php.ini`, ubah `;extension=gd` menjadi `extension=gd`, lalu restart Apache. Verifikasi dengan:
+
+```powershell
+C:\xampp\php\php.exe -m | Select-String gd
+```
+
+Foto otomatis diperbaiki orientasinya, diperkecil maksimal 1200×1200 piksel, metadata dibuang, dan disimpan sebagai WebP kualitas 82 jika didukung GD.
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
