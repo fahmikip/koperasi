@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    html { @apply scroll-smooth; }
+    body { @apply bg-stone-50 text-slate-800 antialiased; }
+    ::selection { @apply bg-blue-200 text-blue-950; }
+    input:not([type='checkbox']):not([type='radio']), select, textarea {
+        @apply rounded-xl border-slate-200 bg-white text-slate-800 shadow-sm transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-100;
+    }
+    input[type='checkbox'], input[type='radio'] { @apply border-slate-300 text-blue-700 focus:ring-blue-200; }
+    table thead { @apply bg-slate-50/80; }
+    table th { @apply px-3 font-semibold uppercase tracking-wider text-slate-500; }
+    table td { @apply px-3; }
+}
+
+@layer components {
+    .koperasi-card { @apply rounded-2xl border border-slate-100 bg-white shadow-soft; }
+    .koperasi-pattern {
+        background-image: radial-gradient(circle at 20% 15%, rgba(245,184,46,.18) 0 2px, transparent 3px), radial-gradient(circle at 80% 85%, rgba(255,255,255,.08) 0 2px, transparent 3px);
+        background-size: 32px 32px, 42px 42px;
+    }
+    .sidebar-link { @apply flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-semibold text-blue-100 transition hover:bg-white/10 hover:text-white; }
+    .sidebar-link-active { @apply bg-white text-blue-950 shadow-lg shadow-black/10 hover:bg-white hover:text-blue-950; }
+}
