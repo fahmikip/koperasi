@@ -6,6 +6,7 @@ use App\Http\Controllers\LoanController;
 use App\Http\Controllers\MemberCardController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SavingController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,9 @@ Route::middleware('auth')->group(function () {
     Route::get('loans/{loan}/installments/create', [InstallmentController::class, 'create'])->name('installments.create');
     Route::post('loans/{loan}/installments', [InstallmentController::class, 'store'])->name('installments.store');
     Route::get('installments/{installment}', [InstallmentController::class, 'show'])->name('installments.show');
+    Route::get('reports/{type}/pdf', [ReportController::class, 'pdf'])->name('reports.pdf');
+    Route::get('reports/{type}/excel', [ReportController::class, 'excel'])->name('reports.excel');
+    Route::get('reports/{type?}', [ReportController::class, 'index'])->name('reports.index');
     Route::get('members/{member}/card', [MemberCardController::class, 'preview'])->name('members.card');
     Route::get('members/{member}/card/download', [MemberCardController::class, 'download'])->name('members.card.download');
 });
