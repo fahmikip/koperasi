@@ -285,6 +285,7 @@ Role * ─── * Permission
 - Seeder role, permission, jenis simpanan, dan Super Admin
 - Factory anggota
 - Dashboard statistik dan grafik keuangan berdasarkan periode
+- Tabel data dengan pencarian, sorting, pagination, cetak, dan export CSV
 - CRUD anggota
 - Upload foto anggota
 - Nomor anggota otomatis
