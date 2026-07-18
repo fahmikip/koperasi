@@ -21,4 +21,36 @@
     </section>
 
     <section class="mt-6 overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-soft"><div class="flex items-center justify-between border-b border-slate-100 px-6 py-5"><div><h2 class="font-display text-lg font-bold text-blue-950">Transaksi Simpanan Terbaru</h2><p class="mt-0.5 text-xs text-slate-400">Aktivitas keuangan terbaru anggota</p></div>@can('savings.view')<a href="{{ route('savings.index') }}" class="text-sm font-bold text-blue-700 hover:text-blue-900">Lihat semua →</a>@endcan</div><div class="overflow-x-auto"><table class="w-full text-sm"><thead class="text-left"><tr><th class="py-3">Nomor</th><th>Anggota</th><th>Jenis</th><th class="text-right">Nilai</th></tr></thead><tbody>@forelse($recent as $row)<tr class="border-t border-slate-100 transition hover:bg-blue-50/40"><td class="py-4 font-mono text-xs text-slate-500">{{ $row->transaction_number }}</td><td class="font-bold text-slate-700">{{ $row->member->name }}</td><td><span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">{{ $row->type->name }}</span></td><td class="text-right font-bold {{ $row->direction === 'withdrawal' ? 'text-rose-700' : 'text-emerald-700' }}">{{ $row->direction === 'withdrawal' ? '-' : '+' }} Rp {{ number_format($row->amount, 0, ',', '.') }}</td></tr>@empty<tr><td colspan="4" class="py-12 text-center text-slate-400">Belum ada transaksi.</td></tr>@endforelse</tbody></table></div></section>
+    <section class="mt-6 overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-soft">
+        <div class="flex flex-col gap-4 border-b border-slate-100 px-6 py-5 lg:flex-row lg:items-end lg:justify-between">
+            <div><div class="text-xs font-bold uppercase tracking-[.18em] text-gold-600">Analitik Periode</div><h2 class="mt-1 font-display text-xl font-bold text-blue-950">Pergerakan Keuangan</h2><p class="mt-1 text-xs text-slate-400">{{ $chart['caption'] }}</p></div>
+            <form method="GET" action="{{ route('dashboard') }}" class="flex flex-wrap items-end gap-2" x-data="{ period: @js($chart['period']) }">
+                <label><span class="mb-1 block text-[10px] font-bold uppercase text-slate-400">Periode</span><select name="period" x-model="period" class="min-w-40 text-sm"><option value="7_days">7 Hari</option><option value="30_days">30 Hari</option><option value="90_days">90 Hari</option><option value="year">Tahun Berjalan</option><option value="custom">Tanggal Khusus</option></select></label>
+                <label x-show="period === 'custom'" x-cloak><span class="mb-1 block text-[10px] font-bold uppercase text-slate-400">Dari</span><input type="date" name="date_from" value="{{ $chart['from'] }}" class="text-sm"></label>
+                <label x-show="period === 'custom'" x-cloak><span class="mb-1 block text-[10px] font-bold uppercase text-slate-400">Sampai</span><input type="date" name="date_to" value="{{ $chart['to'] }}" class="text-sm"></label>
+                <button class="rounded-xl bg-blue-800 px-4 py-2.5 text-sm font-bold text-white">Tampilkan</button>
+            </form>
+        </div>
+        <div class="grid gap-6 p-5 lg:grid-cols-[minmax(0,1fr)_220px] lg:p-6">
+            <div class="relative h-80"><canvas id="financial-period-chart" aria-label="Grafik keuangan berdasarkan periode"></canvas></div>
+            <div class="grid grid-cols-2 gap-3 self-start lg:grid-cols-1">
+                @foreach([['Setoran', 'deposits', 'bg-emerald-500'], ['Penarikan', 'withdrawals', 'bg-rose-500'], ['Pencairan Pinjaman', 'loans', 'bg-gold-500'], ['Pembayaran Angsuran', 'installments', 'bg-blue-700']] as [$label, $key, $color])
+                    <div class="rounded-xl bg-slate-50 p-3"><div class="flex items-center gap-2 text-xs font-semibold text-slate-500"><span class="h-2.5 w-2.5 rounded-full {{ $color }}"></span>{{ $label }}</div><div class="mt-1 text-sm font-extrabold text-blue-950">Rp {{ number_format(array_sum($chart['datasets'][$key]), 0, ',', '.') }}</div></div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('financial-period-chart');
+            if (!canvas || typeof Chart === 'undefined') return;
+            new Chart(canvas, { type: 'line', data: { labels: @json($chart['labels']), datasets: [
+                { label: 'Setoran', data: @json($chart['datasets']['deposits']), borderColor: '#059669', backgroundColor: 'rgba(5,150,105,.1)', fill: true, tension: .35 },
+                { label: 'Penarikan', data: @json($chart['datasets']['withdrawals']), borderColor: '#e11d48', backgroundColor: 'transparent', tension: .35 },
+                { label: 'Pencairan Pinjaman', data: @json($chart['datasets']['loans']), borderColor: '#d59b19', backgroundColor: 'transparent', tension: .35 },
+                { label: 'Pembayaran Angsuran', data: @json($chart['datasets']['installments']), borderColor: '#1e3a8a', backgroundColor: 'transparent', tension: .35 }
+            ] }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend: { display: false }, tooltip: { callbacks: { label: context => `${context.dataset.label}: Rp ${new Intl.NumberFormat('id-ID').format(context.raw)}` } } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true, ticks: { callback: value => `Rp ${new Intl.NumberFormat('id-ID', { notation: 'compact' }).format(value)}` }, grid: { color: 'rgba(148,163,184,.15)' } } } } });
+        });
+    </script>
 </x-app-layout>

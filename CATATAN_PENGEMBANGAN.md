@@ -284,7 +284,7 @@ Role * ─── * Permission
 - Model dan relasi inti
 - Seeder role, permission, jenis simpanan, dan Super Admin
 - Factory anggota
-- Dashboard statistik dasar
+- Dashboard statistik dan grafik keuangan berdasarkan periode
 - CRUD anggota
 - Upload foto anggota
 - Nomor anggota otomatis
